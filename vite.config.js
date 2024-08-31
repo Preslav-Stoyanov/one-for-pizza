@@ -12,7 +12,14 @@ export default defineConfig({
     ],
     server: {
         hmr: {
-            host: "localhost",
+            protocol: "ws",
+            https: false,
+            host: "192.168.56.57",
+        },
+        host: "192.168.56.57",
+        https: false,
+        watch: {
+            usePolling: true,
         },
     },
 });
