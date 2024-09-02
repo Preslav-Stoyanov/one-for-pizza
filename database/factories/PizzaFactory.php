@@ -14,15 +14,20 @@ class PizzaFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition(): array {
+        $pizzas = [
+            'Пица Маринара', 'Пилешка Фиеста', 'Говеждо Специале', 'Свинска Магия', 'Вегетарианска Фантазия',
+            'Босилекова Чудо', 'Сиренена Наслада', 'Чеснова Хармония', 'Пеперони Делукс', 'Гъбен Микс',
+        ];
+
         $ingredients = [
-            'Tomato', 'Cheese', 'Basil', 'Olive Oil', 'Garlic',
-            'Onion', 'Chicken', 'Beef', 'Pork', 'Mushrooms',
-            'Pepper', 'Salt', 'Oregano', 'Thyme', 'Rosemary',
-            'Lettuce', 'Spinach', 'Carrot', 'Potato', 'Bell Pepper',
+            'Домати', 'Сирене', 'Босилек', 'Зехтин', 'Чесън',
+            'Лук', 'Пилешко', 'Говеждо', 'Свинско', 'Гъби',
+            'Черен пипер', 'Сол', 'Риган', 'Мащерка', 'Розмарин',
+            'Маруля', 'Спанак', 'Морков', 'Картоф', 'Чушка',
         ];
 
         return [
-            'name' => fake()->name(),
+            'name' => fake()->randomElement($pizzas),
             'sizes' => fake()->randomElements(range(350, 1500), 3),
             'prices' => fake()->randomElements(range(1000, 2800), 3),
             'ingredients' => fake()->randomElements($ingredients, 8),
