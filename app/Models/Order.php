@@ -14,9 +14,14 @@ class Order extends Model {
         'last_name',
         'phone',
         'address',
+        'amount',
     ];
 
     public function pizzas(): HasMany {
         return $this->hasMany(OrderedPizza::class);
+    }
+
+    public function cancel(): void {
+        $this->delete();
     }
 }

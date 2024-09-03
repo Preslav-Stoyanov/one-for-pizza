@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('ordered_pizzas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained(table: 'orders');
-            $table->foreignId('pizza_id')->constrained(table: 'pizzas');
+            $table->foreignId('order_id')->constrained(table: 'orders')->cascadeOnDelete();
+            $table->foreignId('pizza_id')->constrained(table: 'pizzas')->noActionOnDelete();
             $table->unsignedTinyInteger('size');
             $table->unsignedInteger('quantity');
             $table->json('without_ingredients');
