@@ -2,23 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pizza;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Pizza;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void {
-        // User::factory(10)->create();
+        $data = File::json(database_path('seeds/pizzas.json'));
+        $pizzas = array_map(function ($pizza) {
+            $sizes = [];
+            $prices = [];
+            foreach ($pizza['sizes'] as $size) {
+                $sizes[] = $size['size'];
+                $prices[] = $size['price'];
+            }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+            return [
+                'name' => $pizza['name'],
+                'sizes' => json_encode($sizes),
+                'prices' => json_encode($prices),
+                'ingredients' => json_encode($pizza['ingredients']),
+            ];
+        }, $data);
 
-        Pizza::factory()->count(30)->create();
+        Pizza::insert($pizzas);
     }
 }
