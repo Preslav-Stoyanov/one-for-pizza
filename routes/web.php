@@ -13,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
+Route::get('cart', fn () => Inertia::render('Cart'));
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

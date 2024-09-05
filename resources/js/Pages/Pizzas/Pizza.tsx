@@ -1,7 +1,6 @@
 import { PageProps, Pizza } from "@/types";
 
 export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
-    console.log(pizza);
     return (
         <div>
             <p>{pizza.name}</p>

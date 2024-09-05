@@ -12,6 +12,20 @@ export type Pizza = {
     ingredients: Array<string>;
 };
 
+export type Order = {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    address: string;
+    amount: number;
+};
+
+export type CartPizza = Pizza & {
+    size: number;
+    quantity: number;
+    withoutIngredients?: Array<string>;
+};
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
