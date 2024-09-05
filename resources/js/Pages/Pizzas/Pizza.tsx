@@ -1,16 +1,21 @@
 import { PageProps, Pizza } from "@/types";
+import { Head, usePage } from "@inertiajs/react";
 
 export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
-    console.log(pizza);
+    const { stripePublishable } = usePage().props;
+    console.log(stripePublishable);
     return (
-        <div>
-            <p>{pizza.name}</p>
-            {pizza.sizes.map((size, index) => (
-                <div key={index}>
-                    {size} гр. - {pizza.prices[index] / 100} лв.
-                </div>
-            ))}
-            <p>{pizza.ingredients.join(", ")}</p>
-        </div>
+        <>
+            <Head title={pizza.name} />
+            <div>
+                <p>{pizza.name}</p>
+                {pizza.sizes.map((size, index) => (
+                    <div key={index}>
+                        {size} гр. - {pizza.prices[index] / 100} лв.
+                    </div>
+                ))}
+                <p>{pizza.ingredients.join(", ")}</p>
+            </div>
+        </>
     );
 }

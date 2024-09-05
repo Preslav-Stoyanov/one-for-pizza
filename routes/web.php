@@ -14,6 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
+Route::get('cart', fn () => Inertia::render('Cart'));
 Route::post('orders', [OrderController::class, 'store']);
 
 Route::get('/dashboard', function () {

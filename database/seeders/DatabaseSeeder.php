@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Pizza;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -13,6 +12,7 @@ class DatabaseSeeder extends Seeder {
         $pizzas = array_map(function ($pizza) {
             $sizes = [];
             $prices = [];
+
             foreach ($pizza['sizes'] as $size) {
                 $sizes[] = $size['size'];
                 $prices[] = $size['price'];

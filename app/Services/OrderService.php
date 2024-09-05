@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\OrderedPizza;
 use Illuminate\Support\Facades\DB;
+use Stripe\StripeClient;
 
 class OrderService {
     public function createOrder(
@@ -36,5 +37,17 @@ class OrderService {
 
             return $order;
         });
+    }
+
+    public function getClientSecret(int $amount, int $orderId) {
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        $paymentIntent = $stripe->paymentIntents->create([
+            'amount' => $amount,
+            'currency' => 'bgn',
+            'metadata' => ['order_id' => $orderId],
+        ]);
+
+        return $paymentIntent->client_secret;
     }
 }

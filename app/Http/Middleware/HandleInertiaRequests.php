@@ -28,6 +28,7 @@ class HandleInertiaRequests extends Middleware {
     public function share(Request $request): array {
         return [
             ...parent::share($request),
+            'stripePublishable' => config('services.stripe.publishable'),
             'auth' => [
                 'user' => $request->user(),
             ],
