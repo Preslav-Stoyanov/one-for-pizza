@@ -1,31 +1,24 @@
 import { getPriceInLevas, getSizeGrams } from "@/lib/utils";
 import { CartPizza } from "@/types";
-import { QuantityInput } from "../QuantityInput";
+import { QuantityInput } from "@/components/QuantityInput";
 import { Button } from "@/components/ui/button";
-import { Pencil, X } from "lucide-react";
+import { X } from "lucide-react";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { EditCartPizza } from "@/components/modals/EditCartPizza";
 
 export function CartItem({ pizza }: { pizza: CartPizza }) {
     return (
-        <tr className="relative">
-            <td className="hidden md:inline">
+        <TableRow className="relative">
+            <TableCell className="hidden md:inline">
                 <img
                     src="https://www.kotkata.com/storage/products/255/Портос_831.png"
                     alt={pizza.name}
                     className="h-20"
                 />
-            </td>
-            <td>
-                <Button
-                    variant="link"
-                    className="group text-lg font-medium"
-                    onClick={() =>
-                        console.log("open modal to edit this pizza ingredients")
-                    }
-                >
-                    {pizza.name}
-                    <Pencil className="hidden group-hover:inline" size={20} />
-                </Button>
-                <div className="flex flex-col gap-2">
+            </TableCell>
+            <TableCell>
+                <EditCartPizza pizza={pizza} />
+                <div className="xs:flex hidden flex-col gap-2">
                     {pizza.withoutIngredients?.map((ingredient, index) => (
                         <Button
                             key={index}
@@ -44,14 +37,14 @@ export function CartItem({ pizza }: { pizza: CartPizza }) {
                         </Button>
                     ))}
                 </div>
-            </td>
-            <td>{getSizeGrams(pizza.sizes[pizza.size])}</td>
-            <td>
+            </TableCell>
+            <TableCell>{getSizeGrams(pizza.sizes[pizza.size])}</TableCell>
+            <TableCell>
                 <QuantityInput quantity={pizza.quantity} />
-            </td>
-            <td className="text-center">
+            </TableCell>
+            <TableCell className="text-center">
                 {getPriceInLevas(pizza.prices[pizza.size] * pizza.quantity)}
-            </td>
-        </tr>
+            </TableCell>
+        </TableRow>
     );
 }

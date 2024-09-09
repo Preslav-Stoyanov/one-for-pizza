@@ -1,5 +1,6 @@
 import { CartContainer } from "@/components/cart/CartContainer";
 import { CartPizza } from "@/types";
+import { Head } from "@inertiajs/react";
 
 export default function Cart() {
     const pizzas: CartPizza[] = [
@@ -44,5 +45,10 @@ export default function Cart() {
         },
     ];
 
-    return <CartContainer pizzas={pizzas} />;
+    return (
+        <>
+            <Head title="Количка" />
+            <CartContainer pizzas={pizzas} />
+        </>
+    );
 }
