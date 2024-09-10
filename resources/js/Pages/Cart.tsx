@@ -1,6 +1,6 @@
 import { CartContainer } from "@/components/cart/CartContainer";
-import { CartPizza } from "@/types";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { OrderDetailsForm } from "@/components/cart/OrderDetailsForm";
+import { Head, usePage } from "@inertiajs/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useMemo } from "react";
 
@@ -18,11 +18,11 @@ export default function Cart() {
         <>
             <div className="min-h-screen bg-zinc-50">
                 <Head title="Количка" />
-                <div className="block h-full w-full lg:flex">
-                    <CartContainer />
-                    <div className="h-full w-full">
-                        <Link href="order">Поръчай</Link>
+                <div className="flex h-full w-full flex-col items-center gap-12 p-2 xs:p-4 sm:p-8 md:p-12 xl:flex-row xl:gap-48">
+                    <div className="w-full lg:w-5/6">
+                        <CartContainer />
                     </div>
+                    <OrderDetailsForm />
                 </div>
             </div>
         </>

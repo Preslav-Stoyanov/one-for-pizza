@@ -70,7 +70,9 @@ export function EditCartPizza({ pizza, pizzaIndex }: EditCartPizzaProps) {
                     <DialogTitle>РЕДАКТИРАНЕ</DialogTitle>
                     <DialogDescription>
                         {pizza.quantity} x {pizza.name} -{" "}
-                        {getPriceInLevas(pizza.prices[pizza.size])}
+                        {getPriceInLevas(
+                            pizza.quantity * pizza.prices[pizza.size],
+                        )}
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -85,10 +87,7 @@ export function EditCartPizza({ pizza, pizzaIndex }: EditCartPizzaProps) {
                                 name="ingredients"
                                 render={({ field }) => {
                                     return (
-                                        <FormItem
-                                            // key={ingredient}
-                                            className="flex flex-row items-start space-x-3 space-y-0"
-                                        >
+                                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                                             <FormControl>
                                                 <Checkbox
                                                     checked={field.value?.includes(
@@ -130,7 +129,10 @@ export function EditCartPizza({ pizza, pizzaIndex }: EditCartPizzaProps) {
                             />
                         ))}
                         <FormMessage />
-                        <Button type="submit">Submit</Button>
+                        <div className="flex w-full justify-between">
+                            <Button variant="secondary">Отказ</Button>
+                            <Button type="submit">Запазване</Button>
+                        </div>
                     </form>
                 </Form>
             </DialogContent>

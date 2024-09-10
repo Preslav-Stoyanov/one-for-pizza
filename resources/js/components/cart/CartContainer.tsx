@@ -19,7 +19,7 @@ export function CartContainer() {
     const pizzas = useCartStore((state) => state.pizzas);
 
     return (
-        <Table className="m-auto my-12 w-fit shadow">
+        <Table className="shadow">
             <TableHeader>
                 <TableRow>
                     <TableHead colSpan={md ? 2 : 1} className="text-center">
