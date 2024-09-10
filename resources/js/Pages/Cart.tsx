@@ -1,54 +1,30 @@
 import { CartContainer } from "@/components/cart/CartContainer";
 import { CartPizza } from "@/types";
-import { Head } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useMemo } from "react";
+
+const initializeStripe = (key: string) => loadStripe(key);
 
 export default function Cart() {
-    const pizzas: CartPizza[] = [
-        {
-            name: "Асорти",
-            sizes: [400, 600, 1500],
-            prices: [1020, 1740, 3170],
-            size: 0,
-            quantity: 2,
-            ingredients: [
-                "доматен сос",
-                "луканка",
-                "шунка",
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-                "печен пипер",
-                "кашкавал",
-                "топено сирене",
-            ],
-            withoutIngredients: [
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-            ],
-        },
-        {
-            name: "Божинов",
-            sizes: [300, 500, 1300],
-            prices: [930, 1520, 2750],
-            size: 2,
-            quantity: 1,
-            ingredients: [
-                "сметана",
-                "свинска шунка",
-                "пушена пилешка шунка",
-                "печен пипер",
-                "кашкавал",
-            ],
-        },
-    ];
+    const { stripePublishable } = usePage<{ stripePublishable: string }>()
+        .props;
+    const stripePromise = useMemo(
+        () => initializeStripe(stripePublishable),
+        [stripePublishable],
+    );
 
     return (
         <>
-            <Head title="Количка" />
-            <CartContainer pizzas={pizzas} />
+            <div className="min-h-screen bg-zinc-50">
+                <Head title="Количка" />
+                <div className="block h-full w-full lg:flex">
+                    <CartContainer />
+                    <div className="h-full w-full">
+                        <Link href="order">Поръчай</Link>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

@@ -11,15 +11,18 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { useCartStore } from "@/stores/cartStore";
+import { getPriceInLevas } from "@/lib/utils";
 
-export function CartContainer({ pizzas }: { pizzas: CartPizza[] }) {
+export function CartContainer() {
     const md = useMediaQuery(768);
+    const pizzas = useCartStore((state) => state.pizzas);
 
     return (
-        <Table>
+        <Table className="m-auto my-12 w-fit shadow">
             <TableHeader>
                 <TableRow>
-                    <TableHead colSpan={md ? 3 : 2} className="text-center">
+                    <TableHead colSpan={md ? 2 : 1} className="text-center">
                         Продукт
                     </TableHead>
                     <TableHead className="text-center">Брой</TableHead>
@@ -28,13 +31,21 @@ export function CartContainer({ pizzas }: { pizzas: CartPizza[] }) {
             </TableHeader>
             <TableBody>
                 {pizzas.map((pizza, index) => (
-                    <CartItem key={index} pizza={pizza} />
+                    <CartItem key={index} pizza={pizza} pizzaIndex={index} />
                 ))}
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={md ? 5 : 4} className="text-right">
-                        Поръчка: 68.70 лв.
+                    <TableCell colSpan={md ? 4 : 3} className="text-right">
+                        Поръчка:{" "}
+                        {getPriceInLevas(
+                            pizzas.reduce(
+                                (total, pizza) =>
+                                    total +
+                                    pizza.prices[pizza.size] * pizza.quantity,
+                                0,
+                            ),
+                        )}
                     </TableCell>
                 </TableRow>
             </TableFooter>

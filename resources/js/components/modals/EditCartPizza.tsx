@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,31 +23,35 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { cn, getPriceInLevas } from "@/lib/utils";
+import { cn, getPriceInLevas, getSizeGrams } from "@/lib/utils";
+import { useCartStore } from "@/stores/cartStore";
 
 type EditCartPizzaProps = {
     pizza: CartPizza;
+    pizzaIndex: number;
 };
 
-export function EditCartPizza({ pizza }: EditCartPizzaProps) {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+export function EditCartPizza({ pizza, pizzaIndex }: EditCartPizzaProps) {
+    const [isOpen, setIsOpen] = useState<boolean>();
+    const setWithoutIngredients = useCartStore(
+        (state) => state.setWithoutIngredients,
+    );
 
     const form = useForm<z.infer<typeof editCartPizzaSchema>>({
         resolver: zodResolver(editCartPizzaSchema),
         defaultValues: {
-            ingredients: pizza.withoutIngredients,
+            ingredients: [],
         },
     });
 
     function onSubmit(values: z.infer<typeof editCartPizzaSchema>) {
-        console.log("zustand set pizza ingredients", values);
+        setWithoutIngredients(pizzaIndex, values.ingredients);
         setIsOpen(false);
     }
 
     function onOpenChange(open: boolean) {
-        if (!open) {
-            form.setValue("ingredients", pizza.withoutIngredients ?? []);
-        }
+        form.setValue("ingredients", pizza.withoutIngredients ?? []);
+
         setIsOpen(open);
     }
 
@@ -56,9 +60,9 @@ export function EditCartPizza({ pizza }: EditCartPizzaProps) {
             <Button
                 variant="link"
                 className="group text-lg font-medium"
-                onClick={() => setIsOpen(true)}
+                onClick={() => onOpenChange(true)}
             >
-                {pizza.name}
+                {pizza.name} ({getSizeGrams(pizza.sizes[pizza.size])})
                 <Pencil className="mb-1 hidden group-hover:inline" size={20} />
             </Button>
             <DialogContent>

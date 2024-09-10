@@ -6,6 +6,7 @@ export interface User {
 }
 
 export type Pizza = {
+    id: number;
     name: string;
     sizes: Array<number>;
     prices: Array<number>;
@@ -15,7 +16,7 @@ export type Pizza = {
 export type CartPizza = Pizza & {
     size: number;
     quantity: number;
-    withoutIngredients?: Array<string>;
+    withoutIngredients: Array<string>;
 };
 
 export type PageProps<
