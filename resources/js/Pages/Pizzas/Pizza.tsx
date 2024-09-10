@@ -2,8 +2,6 @@ import { PageProps, Pizza } from "@/types";
 import { Head, usePage } from "@inertiajs/react";
 
 export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
-    const { stripePublishable } = usePage().props;
-    console.log(stripePublishable);
     return (
         <>
             <Head title={pizza.name} />
