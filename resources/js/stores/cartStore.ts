@@ -63,7 +63,7 @@ export const useCartStore = create<CartState>()((set) => ({
         set((state) => {
             const pizzas = state.pizzas;
             const pizza = pizzas[pizzaIndex];
-            if (pizza && pizza.quantity < 32) pizza.quantity++;
+            if (pizza) pizza.quantity++;
 
             return {
                 pizzas: [...pizzas],

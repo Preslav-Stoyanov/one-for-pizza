@@ -11,30 +11,14 @@ export const orderDetailsSchema = z.object({
         .max(32, { message: "Твърде дълга фамилия" }),
     phone: z
         .string()
-        .min(10, { message: "Моля въведете телефонния си номер" })
-        .max(20, { message: "Невалиден телефонен номер" }),
+        .min(1, { message: "Моля въведете телефонния си номер" })
+        .max(32, { message: "Невалиден телефонен номер" }),
     address: z
         .string()
         .min(1, { message: "Моля въведете адрес за доставка" })
         .max(64, { message: "Твърде дълъг адрес" }),
     entrance: z.string().optional(),
-    floor: z
-        .string()
-        .optional()
-        .refine(
-            (floor) =>
-                floor
-                    ? Number(floor) &&
-                      !floor.includes(".") &&
-                      !floor.includes(",") &&
-                      floor[0] !== "-"
-                    : true,
-            "Моля ползвайте валидни числа",
-        )
-        .refine(
-            (floor) => (floor ? Number(floor) < 164 : true),
-            "Няма сграда с толкова етажи все още",
-        ),
+    floor: z.number().optional(),
     appartment: z.string().optional(),
     additionalInfo: z
         .string()

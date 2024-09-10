@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,14 +12,16 @@ use Inertia\Inertia;
 //    ]);
 //});
 
-Route::get('/', function () {return Inertia::render('Index');});
-Route::get('/pizza', function () {return Inertia::render('food-div');});
-
+Route::get('/', function () {
+    return Inertia::render('Index');
+});
+Route::get('/pizza', function () {
+    return Inertia::render('food-div');
+});
 
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
 Route::get('cart', fn () => Inertia::render('Cart'));
-Route::get('payment/create', [PaymentController::class, 'create']);
-Route::post('orders', [OrderController::class, 'store']);
+Route::get('order', fn () => Inertia::render('Order'));
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
