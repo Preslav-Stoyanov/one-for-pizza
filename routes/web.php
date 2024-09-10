@@ -7,9 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Index');
-});
+Route::get('/', fn () => Inertia::render('Index'));
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
 Route::get('cart', fn () => Inertia::render('Cart'));
 Route::get('payment/create', [PaymentController::class, 'create']);
