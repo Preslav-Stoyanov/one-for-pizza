@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +16,8 @@ Route::get('/', function () {
 
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
 Route::get('cart', fn () => Inertia::render('Cart'));
-Route::get('order', fn () => Inertia::render('Order'));
+Route::get('payment/create', [PaymentController::class, 'create']);
+Route::post('orders', [OrderController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

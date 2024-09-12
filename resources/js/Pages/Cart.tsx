@@ -1,18 +1,15 @@
+import { useState } from "react";
+import { Head } from "@inertiajs/react";
+
 import { CartContainer } from "@/components/cart/CartContainer";
 import { OrderDetailsForm } from "@/components/cart/OrderDetailsForm";
-import { Head, usePage } from "@inertiajs/react";
-import { loadStripe } from "@stripe/stripe-js";
-import { useMemo } from "react";
-
-const initializeStripe = (key: string) => loadStripe(key);
+import { Checkout } from "@/components/modals/Checkout";
 
 export default function Cart() {
-    const { stripePublishable } = usePage<{ stripePublishable: string }>()
-        .props;
-    const stripePromise = useMemo(
-        () => initializeStripe(stripePublishable),
-        [stripePublishable],
-    );
+    const [checkoutData, setCheckoutData] = useState<{
+        orderUuid: string;
+        clientSecret: string;
+    }>();
 
     return (
         <>
@@ -22,8 +19,14 @@ export default function Cart() {
                     <div className="w-full lg:w-5/6">
                         <CartContainer />
                     </div>
-                    <OrderDetailsForm />
+                    <OrderDetailsForm setCheckoutData={setCheckoutData} />
                 </div>
+                {checkoutData?.clientSecret && (
+                    <Checkout
+                        clientSecret={checkoutData.clientSecret}
+                        orderUuid={checkoutData.orderUuid}
+                    />
+                )}
             </div>
         </>
     );

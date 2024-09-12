@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->json('sizes');
             $table->json('prices');
             $table->json('ingredients');
-            $table->timestamps();
         });
     }
 

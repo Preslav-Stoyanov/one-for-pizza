@@ -10,9 +10,6 @@ use Tests\TestCase;
 class ViewPizzaTest extends TestCase {
     use RefreshDatabase;
 
-    /**
-     * A basic test example.
-     */
     public function test_user_can_view_pizza(): void {
         //Arrange
         $pizza = Pizza::factory()->create([
@@ -35,15 +32,13 @@ class ViewPizzaTest extends TestCase {
                 ->has('sizes', count($pizza->sizes))
                 ->has('prices', count($pizza->prices))
                 ->has('ingredients', count($pizza->ingredients))
-                ->has('created_at')
-                ->has('updated_at')
             )
         );
     }
 
     public function test_user_cant_view_pizza_because_pizza_doesnt_exist(): void {
         //Act
-        $res = $this->get('pizzas/1');
+        $res = $this->get('pizzas/0');
 
         //Assert
         $res->assertNotFound();

@@ -1,5 +1,4 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { CartPizza } from "@/types";
 
 import { CartItem } from "@/components/cart/CartItem";
 import {
