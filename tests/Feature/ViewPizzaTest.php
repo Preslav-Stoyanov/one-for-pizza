@@ -32,8 +32,6 @@ class ViewPizzaTest extends TestCase {
                 ->has('sizes', count($pizza->sizes))
                 ->has('prices', count($pizza->prices))
                 ->has('ingredients', count($pizza->ingredients))
-                ->has('created_at')
-                ->has('updated_at')
             )
         );
     }

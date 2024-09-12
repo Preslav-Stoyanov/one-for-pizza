@@ -11,7 +11,7 @@ class OrderedPizza extends Model {
     public $timestamps = false;
 
     protected $fillable = [
-        'order_id',
+        'order_uuid',
         'pizza_id',
         'size',
         'quantity',

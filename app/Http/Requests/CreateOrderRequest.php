@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest {
+class CreateOrderRequest extends FormRequest {
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,12 +16,15 @@ class StoreOrderRequest extends FormRequest {
             'pizzas.*.id' => ['required'],
             'pizzas.*.size' => ['required', 'numeric', 'min:0'],
             'pizzas.*.quantity' => ['required', 'numeric', 'min:1', 'max:32'],
-            'pizzas.*.withoutIngredients' => ['nullable'],
+            'pizzas.*.withoutIngredients' => ['array', 'nullable'],
             'firstName' => ['required', 'string', 'max:32'],
             'lastName' => ['required', 'string', 'max:32'],
-            'phone' => ['required', 'string', 'min:10', 'max:15'],
+            'phone' => ['required', 'string', 'min:10', 'max:20'],
             'address' => ['required', 'string', 'max:100'],
-            'paymentToken' => ['required', 'string'],
+            'entrance' => ['nullable', 'string'],
+            'floor' => ['nullable', 'integer', 'min:1'],
+            'appartment' => ['nullable', 'string'],
+            'additionalInfo' => ['nullable', 'string'],
         ];
     }
 }

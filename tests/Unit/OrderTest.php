@@ -11,14 +11,14 @@ class OrderTest extends TestCase {
         //Arrange
         $order = Order::factory()->create();
         $orderedPizza = OrderedPizza::factory()->create([
-            'order_id' => $order->id,
+            'order_uuid' => $order->uuid,
         ]);
 
         //Act
         $order->cancel();
 
         //Assert
-        $this->assertNull(Order::find($order->id));
+        $this->assertNull(Order::find($order->uuid));
         $this->assertNull(OrderedPizza::find($orderedPizza->id));
     }
 }

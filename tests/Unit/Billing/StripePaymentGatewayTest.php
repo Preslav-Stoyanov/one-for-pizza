@@ -2,20 +2,19 @@
 
 namespace Tests\Unit\Billing;
 
-use App\Billing\FakePaymentGateway;
-use App\Exceptions\PaymentFailedException;
+use App\Billing\StripePaymentGateway;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class StripePaymentGatewayTest extends TestCase {
     use RefreshDatabase;
 
-    private FakePaymentGateway $paymentGateway;
+    private StripePaymentGateway $paymentGateway;
 
     public function setUp(): void {
         parent::setUp();
 
-        $this->paymentGateway = new FakePaymentGateway;
+        $this->paymentGateway = new StripePaymentGateway;
     }
 
     public function test_charges_with_a_valid_payment_token_are_successful(): void {

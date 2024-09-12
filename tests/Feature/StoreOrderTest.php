@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Billing\FakePaymentGateway;
 use App\Billing\PaymentGateway;
+use App\Billing\StripePaymentGateway;
 use App\Models\Order;
 use App\Models\Pizza;
 use App\Services\OrderService;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 class StoreOrderTest extends TestCase {
     use RefreshDatabase;
 
-    private FakePaymentGateway $paymentGateway;
+    private StripePaymentGateway $paymentGateway;
 
     private OrderService $orderService;
 
@@ -21,7 +21,7 @@ class StoreOrderTest extends TestCase {
         parent::setUp();
 
         $this->orderService = new OrderService;
-        $this->paymentGateway = new FakePaymentGateway;
+        $this->paymentGateway = new StripePaymentGateway;
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
     }
 
