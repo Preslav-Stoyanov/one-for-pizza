@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -14,8 +13,18 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+import { useCartStore } from "@/stores/cartStore";
+import { api } from "@/api";
+import { Dispatch, SetStateAction } from "react";
 
-export function OrderDetailsForm() {
+export function OrderDetailsForm({
+    setCheckoutData,
+}: {
+    setCheckoutData: Dispatch<
+        SetStateAction<{ orderUuid: string; clientSecret: string } | undefined>
+    >;
+}) {
+    const pizzas = useCartStore((state) => state.pizzas);
     const form = useForm<z.infer<typeof orderDetailsSchema>>({
         resolver: zodResolver(orderDetailsSchema),
         defaultValues: {
@@ -30,8 +39,12 @@ export function OrderDetailsForm() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof orderDetailsSchema>) {
-        console.log(values);
+    async function onSubmit(orderDetails: z.infer<typeof orderDetailsSchema>) {
+        const res = await api.getClientSecret({
+            pizzas,
+            ...orderDetails,
+        });
+        if (res) setCheckoutData(res);
     }
 
     return (
