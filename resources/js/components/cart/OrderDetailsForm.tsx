@@ -2,11 +2,9 @@ import { orderDetailsSchema } from "@/schemas/orderDetailsSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import qs from "query-string";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -15,9 +13,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { router } from "@inertiajs/react";
 import { useCartStore } from "@/stores/cartStore";
-import axios from "axios";
 import { api } from "@/api";
 import { Dispatch, SetStateAction } from "react";
 

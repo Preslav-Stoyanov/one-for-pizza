@@ -1,13 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { editCartPizzaSchema } from "@/schemas/pizzaSchemas";
-import { CartPizza } from "@/types";
-
-import { Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useMemo } from "react";
 import {
     Dialog,
     DialogContent,
@@ -15,16 +6,6 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { cn, getPriceInLevas, getSizeGrams } from "@/lib/utils";
-import { useCartStore } from "@/stores/cartStore";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { usePage } from "@inertiajs/react";
 import { Elements } from "@stripe/react-stripe-js";
