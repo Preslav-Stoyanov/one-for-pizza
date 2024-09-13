@@ -24,9 +24,9 @@ export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
                     <p>{pizza.ingredients.join(", ")}</p>
                 </div> */}
 
-            <div className="flex flex-col gap-10 p-5">
+            <div className="flex flex-col gap-10 p-5 bg-wood-texture">
                 <div className="">
-                    <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center justify-between ">
                         <Button className="rounded-full">
                             <ArrowLeft></ArrowLeft>
                         </Button>
@@ -40,7 +40,7 @@ export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
                         />
                     </div>
                 </div>
-                <div className="flex h-12 flex-row items-center justify-evenly rounded-2xl bg-gray-400">
+                <div className="flex h-12 flex-row items-center justify-evenly rounded-2xl  bg-gray-400">
                     <span>Крайна цена: 10.00</span> <PlusCircle />{" "}
                     <span>1</span> <MinusCircle /> <ShoppingBasket />
                 </div>
