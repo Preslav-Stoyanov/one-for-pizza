@@ -5,7 +5,7 @@ export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
     return (
         <>
             <Head title={pizza.name} />
-            <div>
+            {/* <div>
                 <p>{pizza.name}</p>
                 {pizza.sizes.map((size, index) => (
                     <div key={index}>
@@ -13,7 +13,9 @@ export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
                     </div>
                 ))}
                 <p>{pizza.ingredients.join(", ")}</p>
-            </div>
+            </div> */}
+ 
+
         </>
     );
 }
