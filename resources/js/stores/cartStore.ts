@@ -11,7 +11,7 @@ type CartState = {
     increaseQuantity: (pizzaIndex: number) => void;
     decreaseQuantity: (pizzaIndex: number) => void;
     addPizza: (pizza: Omit<CartPizza, "id">) => void;
-    removePizza?: (pizzaIndex: number) => void;
+    removePizza: (pizzaIndex: number) => void;
 };
 
 export const useCartStore = create<CartState>()((set) => ({
@@ -77,6 +77,16 @@ export const useCartStore = create<CartState>()((set) => ({
             };
 
             pizzas.push(newPizza);
+
+            return {
+                pizzas: [...pizzas],
+            };
+        }),
+
+    removePizza: (pizzaIndex) =>
+        set((state) => {
+            const pizzas = state.pizzas;
+            pizzas.splice(pizzaIndex, 1);
 
             return {
                 pizzas: [...pizzas],
