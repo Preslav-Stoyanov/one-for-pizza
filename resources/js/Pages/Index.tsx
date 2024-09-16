@@ -8,66 +8,25 @@ export default function Index() {
         {
             id: 1,
             name: "Прошуто",
-            description:
-                "Доматен сос, гъби- печурки/манатарки, кашоматен сос, гъби- печурки/манатарки, кашкавал, прошуто крудо, рукола ",
-            sizes: [
-                { size: 1400, price: 1300 },
-                { size: 1400, price: 1300 },
-                { size: 1400, price: 1300 },
+            ingredients: [
+                "Доматен сос",
+                "кашоматен сос",
+                "кашкавал",
+                "прошуто крудо",
+                "рукола",
             ],
-        },
-        {
-            id: 2,
-            name: "Чироза",
-            description: "Индийски сос, чоризо, кашкавал, рукола ",
-            sizes: [{ size: 1400, price: 1300 }],
-        },
-        {
-            id: 3,
-            name: "Амадор",
-            description:
-                "Пилешко филе, чоризо, гъби, кашкавал, прошуто крудо, рукола. ",
-            sizes: [{ size: 1400, price: 1300 }],
-        },
-        {
-            id: 4,
-            name: "Прошуто",
-            description:
-                "Доматен сос, гъби- печурки/манатарки, кашоматен сос, гъби- печурки/манатарки, кашкавал, прошуто крудо, рукола ",
-            sizes: [
-                { size: 1400, price: 1300 },
-                { size: 1400, price: 1300 },
-                { size: 1400, price: 1300 },
-            ],
-        },
-        {
-            id: 5,
-            name: "Чироза",
-            description: "Индийски сос, чоризо, кашкавал, рукола ",
-            sizes: [{ size: 1400, price: 1300 }],
-        },
-        {
-            id: 6,
-            name: "Амадор",
-            description:
-                "Пилешко филе, чоризо, гъби, кашкавал, прошуто крудо, рукола. ",
-            sizes: [{ size: 1400, price: 1300 }],
+            sizes: [1400, 1500, 1600],
+            prices: [1300, 1400, 1500],
         },
     ];
+
     return (
         <div className="min-h-screen bg-amber-50">
             <Head title="Test" />
             <Navbar />
             <div className="grid grid-cols-1 justify-items-center gap-x-10 p-5 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
                 {pizzas.map((pizza) => {
-                    return (
-                        <FoodCard
-                            key={pizza.id}
-                            name={pizza.name}
-                            ingredients={pizza.description}
-                            sizes={pizza.sizes}
-                        ></FoodCard>
-                    );
+                    return <FoodCard key={pizza.id} pizza={pizza}></FoodCard>;
                 })}
             </div>
         </div>

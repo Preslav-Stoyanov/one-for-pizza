@@ -10,55 +10,12 @@ type CartState = {
     removeWithoutIngredient: (pizzaIndex: number, ingredient: string) => void;
     increaseQuantity: (pizzaIndex: number) => void;
     decreaseQuantity: (pizzaIndex: number) => void;
-    addPizza?: (pizza: CartPizza) => void;
+    addPizza: (pizza: Omit<CartPizza, "id">) => void;
     removePizza?: (pizzaIndex: number) => void;
 };
 
 export const useCartStore = create<CartState>()((set) => ({
-    pizzas: [
-        {
-            id: 1,
-            name: "Асорти",
-            sizes: [400, 600, 1500],
-            prices: [1020, 1740, 3170],
-            size: 0,
-            quantity: 2,
-            ingredients: [
-                "доматен сос",
-                "луканка",
-                "шунка",
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-                "печен пипер",
-                "кашкавал",
-                "топено сирене",
-            ],
-            withoutIngredients: [
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-            ],
-        },
-        {
-            id: 2,
-            name: "Божинов",
-            sizes: [300, 500, 1300],
-            prices: [930, 1520, 2750],
-            size: 2,
-            quantity: 1,
-            ingredients: [
-                "сметана",
-                "свинска шунка",
-                "пушена пилешка шунка",
-                "печен пипер",
-                "кашкавал",
-            ],
-            withoutIngredients: [],
-        },
-    ],
+    pizzas: [],
     increaseQuantity: (pizzaIndex) =>
         set((state) => {
             const pizzas = state.pizzas;
@@ -105,6 +62,21 @@ export const useCartStore = create<CartState>()((set) => ({
                     (ingredient) => withoutIngredients.includes(ingredient),
                 );
             }
+
+            return {
+                pizzas: [...pizzas],
+            };
+        }),
+
+    addPizza: (pizza) =>
+        set((state) => {
+            const pizzas = state.pizzas;
+            const newPizza: CartPizza = {
+                id: pizzas.length,
+                ...pizza,
+            };
+
+            pizzas.push(newPizza);
 
             return {
                 pizzas: [...pizzas],
