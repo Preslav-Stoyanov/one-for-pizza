@@ -1,5 +1,5 @@
 import { PageProps, Pizza } from "@/types";
-import { Head, usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
     return (

@@ -7,13 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
-});
-
+Route::get('/', [PizzaController::class, 'index']);
 Route::get('pizzas/{id}', [PizzaController::class, 'show']);
 Route::get('cart', fn () => Inertia::render('Cart'));
 Route::get('payment/create', [PaymentController::class, 'create']);

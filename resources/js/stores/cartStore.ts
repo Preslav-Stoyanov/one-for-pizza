@@ -1,5 +1,6 @@
 import { CartPizza } from "@/types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type CartState = {
     pizzas: CartPizza[];
@@ -10,104 +11,95 @@ type CartState = {
     removeWithoutIngredient: (pizzaIndex: number, ingredient: string) => void;
     increaseQuantity: (pizzaIndex: number) => void;
     decreaseQuantity: (pizzaIndex: number) => void;
-    addPizza?: (pizza: CartPizza) => void;
-    removePizza?: (pizzaIndex: number) => void;
+    addPizza: (pizza: Omit<CartPizza, "id">) => void;
+    removePizza: (pizzaIndex: number) => void;
 };
 
-export const useCartStore = create<CartState>()((set) => ({
-    pizzas: [
+export const useCartStore = create<CartState>()(
+    persist(
+        (set) => ({
+            pizzas: [],
+            increaseQuantity: (pizzaIndex) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    const pizza = pizzas[pizzaIndex];
+                    if (pizza && pizza.quantity < 32) pizza.quantity++;
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+
+            decreaseQuantity: (pizzaIndex) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    const pizza = pizzas[pizzaIndex];
+                    if (pizza && pizza.quantity > 1) pizza.quantity--;
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+
+            removeWithoutIngredient: (pizzaIndex, ingredient) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    const pizza = pizzas[pizzaIndex];
+                    if (pizza && pizza.withoutIngredients) {
+                        pizza.withoutIngredients =
+                            pizza.withoutIngredients.filter(
+                                (i) => i !== ingredient,
+                            );
+                    }
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+
+            setWithoutIngredients: (pizzaIndex, withoutIngredients) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    const pizza = pizzas[pizzaIndex];
+                    if (pizza) {
+                        pizza.withoutIngredients = pizza.ingredients.filter(
+                            (ingredient) =>
+                                withoutIngredients.includes(ingredient),
+                        );
+                    }
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+
+            addPizza: (pizza) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    const newPizza: CartPizza = {
+                        id: pizzas.length,
+                        ...pizza,
+                    };
+
+                    pizzas.push(newPizza);
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+
+            removePizza: (pizzaIndex) =>
+                set((state) => {
+                    const pizzas = state.pizzas;
+                    pizzas.splice(pizzaIndex, 1);
+
+                    return {
+                        pizzas: [...pizzas],
+                    };
+                }),
+        }),
         {
-            id: 1,
-            name: "Асорти",
-            sizes: [400, 600, 1500],
-            prices: [1020, 1740, 3170],
-            size: 0,
-            quantity: 2,
-            ingredients: [
-                "доматен сос",
-                "луканка",
-                "шунка",
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-                "печен пипер",
-                "кашкавал",
-                "топено сирене",
-            ],
-            withoutIngredients: [
-                "бекон",
-                "гъби",
-                "маслини",
-                "кисели краставици",
-            ],
+            name: "cart-storage",
         },
-        {
-            id: 2,
-            name: "Божинов",
-            sizes: [300, 500, 1300],
-            prices: [930, 1520, 2750],
-            size: 2,
-            quantity: 1,
-            ingredients: [
-                "сметана",
-                "свинска шунка",
-                "пушена пилешка шунка",
-                "печен пипер",
-                "кашкавал",
-            ],
-            withoutIngredients: [],
-        },
-    ],
-    increaseQuantity: (pizzaIndex) =>
-        set((state) => {
-            const pizzas = state.pizzas;
-            const pizza = pizzas[pizzaIndex];
-            if (pizza && pizza.quantity < 32) pizza.quantity++;
-
-            return {
-                pizzas: [...pizzas],
-            };
-        }),
-
-    decreaseQuantity: (pizzaIndex) =>
-        set((state) => {
-            const pizzas = state.pizzas;
-            const pizza = pizzas[pizzaIndex];
-            if (pizza && pizza.quantity > 1) pizza.quantity--;
-
-            return {
-                pizzas: [...pizzas],
-            };
-        }),
-
-    removeWithoutIngredient: (pizzaIndex, ingredient) =>
-        set((state) => {
-            const pizzas = state.pizzas;
-            const pizza = pizzas[pizzaIndex];
-            if (pizza && pizza.withoutIngredients) {
-                pizza.withoutIngredients = pizza.withoutIngredients.filter(
-                    (i) => i !== ingredient,
-                );
-            }
-
-            return {
-                pizzas: [...pizzas],
-            };
-        }),
-
-    setWithoutIngredients: (pizzaIndex, withoutIngredients) =>
-        set((state) => {
-            const pizzas = state.pizzas;
-            const pizza = pizzas[pizzaIndex];
-            if (pizza) {
-                pizza.withoutIngredients = pizza.ingredients.filter(
-                    (ingredient) => withoutIngredients.includes(ingredient),
-                );
-            }
-
-            return {
-                pizzas: [...pizzas],
-            };
-        }),
-}));
+    ),
+);

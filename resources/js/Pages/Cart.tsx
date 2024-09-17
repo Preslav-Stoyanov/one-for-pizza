@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/react";
 import { CartContainer } from "@/components/cart/CartContainer";
 import { OrderDetailsForm } from "@/components/cart/OrderDetailsForm";
 import { Checkout } from "@/components/modals/Checkout";
+import { Navbar } from "@/components/ui/navbar";
 
 export default function Cart() {
     const [checkoutData, setCheckoutData] = useState<{
@@ -13,8 +14,9 @@ export default function Cart() {
 
     return (
         <>
+            <Head title="Количка" />
+            <Navbar />
             <div className="min-h-screen bg-zinc-50">
-                <Head title="Количка" />
                 <div className="flex h-full w-full flex-col items-center gap-12 p-2 xs:p-4 sm:p-8 md:p-12 xl:flex-row xl:gap-48">
                     <div className="w-full lg:w-5/6">
                         <CartContainer />

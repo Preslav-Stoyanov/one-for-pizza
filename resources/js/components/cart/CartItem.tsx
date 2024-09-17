@@ -17,6 +17,7 @@ export function CartItem({
     const removeWithoutIngredient = useCartStore(
         (state) => state.removeWithoutIngredient,
     );
+    const removePizzaFromCart = useCartStore((state) => state.removePizza);
 
     return (
         <TableRow className="relative">
@@ -62,6 +63,14 @@ export function CartItem({
             </TableCell>
             <TableCell className="text-center">
                 {getPriceInLevas(pizza.prices[pizza.size] * pizza.quantity)}
+            </TableCell>
+            <TableCell className="p-0 text-center">
+                <div
+                    className="group cursor-pointer p-3"
+                    onClick={() => removePizzaFromCart(pizzaIndex)}
+                >
+                    <X className="stroke-[3.5] group-hover:text-rose-500" />
+                </div>
             </TableCell>
         </TableRow>
     );
