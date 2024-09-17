@@ -1,3 +1,4 @@
+import { getPriceInLevas, getSizeGrams } from "@/lib/utils";
 import { useCartStore } from "@/stores/cartStore";
 import { Pizza } from "@/types";
 
@@ -7,23 +8,25 @@ export function FoodCard({ pizza }: { pizza: Pizza }) {
     const addPizzaToCart = useCartStore((state) => state.addPizza);
 
     return (
-        <div className="m-5 mb-16 w-full">
+        <div className="w-full">
             <div className="relative rounded bg-wood-texture bg-cover shadow-lg shadow-zinc-700/60">
-                <label className="ml-4 text-2xl font-bold">{pizza.name}</label>
+                <h3 className="ml-4 text-lg font-semibold">{pizza.name}</h3>
                 <img
-                    src="/assets/images/pizzas/Амадор_885.png"
+                    src={`/assets/images/pizzas/${pizza.id}.jpg`}
                     alt="Амадор"
                     className="w-[70%]"
                 />
-                <div className="absolute bottom-0 right-0 flex h-full flex-col justify-end">
+                <div className="absolute bottom-4 right-0 flex h-full flex-col items-end justify-end gap-4">
                     {pizza.sizes.map((size, sizeIndex) => (
                         <div
                             key={sizeIndex}
-                            className="flex h-full flex-row items-center gap-2"
+                            className="flex flex-row items-center gap-2"
                         >
-                            <div className="flex flex-col text-sm font-semibold lg:text-base">
-                                <span>{size} гр.</span>
-                                <span>{pizza.prices[sizeIndex] / 100} лв.</span>
+                            <div className="flex flex-col text-sm font-medium">
+                                <span>{getSizeGrams(size)}</span>
+                                <span>
+                                    {getPriceInLevas(pizza.prices[sizeIndex])}
+                                </span>
                             </div>
                             <button
                                 onClick={() =>
@@ -43,7 +46,9 @@ export function FoodCard({ pizza }: { pizza: Pizza }) {
                     ))}
                 </div>
             </div>
-            <p className="mt-2 text-black">{pizza.ingredients.join(", ")}</p>
+            <p className="mt-2 capitalize text-black">
+                {pizza.ingredients.join(", ")}
+            </p>
         </div>
     );
 }

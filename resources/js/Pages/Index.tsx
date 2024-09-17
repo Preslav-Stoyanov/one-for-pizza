@@ -1,30 +1,14 @@
 import { FoodCard } from "@/components/ui/food-card";
 import { Navbar } from "@/components/ui/navbar";
-import { Head, Link } from "@inertiajs/react";
-import React from "react";
+import { PageProps, Pizza } from "@/types";
+import { Head } from "@inertiajs/react";
 
-export default function Index() {
-    const pizzas = [
-        {
-            id: 1,
-            name: "Прошуто",
-            ingredients: [
-                "Доматен сос",
-                "кашоматен сос",
-                "кашкавал",
-                "прошуто крудо",
-                "рукола",
-            ],
-            sizes: [1400, 1500, 1600],
-            prices: [1300, 1400, 1500],
-        },
-    ];
-
+export default function Index({ pizzas }: PageProps<{ pizzas: Pizza[] }>) {
     return (
         <div className="min-h-screen bg-amber-50">
             <Head title="Test" />
             <Navbar />
-            <div className="grid grid-cols-1 justify-items-center gap-x-10 p-5 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
+            <div className="grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 p-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                 {pizzas.map((pizza) => {
                     return <FoodCard key={pizza.id} pizza={pizza}></FoodCard>;
                 })}
