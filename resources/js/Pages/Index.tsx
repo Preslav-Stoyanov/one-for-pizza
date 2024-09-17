@@ -1,18 +1,67 @@
+import { Head } from "@inertiajs/react";
+import { PageProps, Pizza } from "@/types";
+
 import { FoodCard } from "@/components/ui/food-card";
 import { Navbar } from "@/components/ui/navbar";
-import { PageProps, Pizza } from "@/types";
-import { Head } from "@inertiajs/react";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 
-export default function Index({ pizzas }: PageProps<{ pizzas: Pizza[] }>) {
+type IndexProps = PageProps<{
+    pizzas: {
+        current_page: number;
+        data: Pizza[];
+        last_page: number;
+    };
+}>;
+
+export default function Index({ pizzas }: IndexProps) {
     return (
-        <div className="min-h-screen bg-amber-50">
-            <Head title="Test" />
+        <>
+            <Head title="Home" />
             <Navbar />
-            <div className="grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 p-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                {pizzas.map((pizza) => {
-                    return <FoodCard key={pizza.id} pizza={pizza}></FoodCard>;
-                })}
-            </div>
-        </div>
+            <main className="bg-amber-50 p-5">
+                <div className="grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                    {pizzas.data.map((pizza) => {
+                        return (
+                            <FoodCard key={pizza.id} pizza={pizza}></FoodCard>
+                        );
+                    })}
+                </div>
+                <Pagination>
+                    <PaginationContent>
+                        {pizzas.current_page > 1 && (
+                            <PaginationItem>
+                                <PaginationPrevious
+                                    href={`?page=${pizzas.current_page - 1}`}
+                                />
+                            </PaginationItem>
+                        )}
+                        {[...Array(pizzas.last_page)].map((_, index) => (
+                            <PaginationItem key={index}>
+                                <PaginationLink
+                                    isActive={pizzas.current_page === index + 1}
+                                    href={`/?page=${index + 1}`}
+                                >
+                                    {index + 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        ))}
+                        {pizzas.current_page < pizzas.last_page && (
+                            <PaginationItem>
+                                <PaginationNext
+                                    href={`?page=${pizzas.current_page + 1}`}
+                                />
+                            </PaginationItem>
+                        )}
+                    </PaginationContent>
+                </Pagination>
+            </main>
+        </>
     );
 }
