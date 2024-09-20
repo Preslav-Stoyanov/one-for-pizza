@@ -29,7 +29,7 @@ export default function Index({ pizzas }: IndexProps) {
                 <div className="grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                     {pizzas.data.map((pizza) => {
                         return (
-                           <Link href={`/pizzas/${pizza.id}`}> <FoodCard key={pizza.id} pizza={pizza}></FoodCard> </Link>
+                            <FoodCard key={pizza.id} pizza={pizza}></FoodCard> 
                         );
                     })}
                 </div>
