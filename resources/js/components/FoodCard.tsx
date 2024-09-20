@@ -13,7 +13,7 @@ export function FoodCard({ pizza }: { pizza: Pizza }) {
                 <h3 className="ml-4 text-lg font-semibold">{pizza.name}</h3>
                 <img
                     src={`/assets/images/pizzas/${pizza.id}.jpg`}
-                    alt="Амадор"
+                    alt={pizza.name}
                     className="w-[70%]"
                 />
                 <div className="absolute bottom-4 right-0 flex h-full flex-col items-end justify-end gap-4">

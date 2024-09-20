@@ -1,6 +1,6 @@
 import { PageProps, Pizza } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, usePage, Link } from "@inertiajs/react";
 import {
     ArrowLeft,
     MinusCircle,
@@ -9,83 +9,83 @@ import {
     ShoppingCart,
 } from "lucide-react";
 import { QuantityInput } from "@/components/QuantityInput";
+import { useState } from "react";
+import { getPriceInLevas, getSizeGrams } from "@/lib/utils";
 
 export default function PizzaPage({ pizza }: PageProps<{ pizza: Pizza }>) {
+    const [psize, setPsize] = useState(0);
+    const [count, setCount] = useState(1);
+
     return (
         <>
             <Head title={pizza.name} />
-            {/* <div>
-                    <p>{pizza.name}</p>
-                    {pizza.sizes.map((size, index) => (
-                        <div key={index}>
-                            {size} гр. - {pizza.prices[index] / 100} лв.
-                        </div>
-                    ))}
-                    <p>{pizza.ingredients.join(", ")}</p>
-                </div> */}
-
-            <div className="flex flex-col gap-10 p-5 bg-wood-texture">
-                <div className="">
-                    <div className="flex flex-row items-center justify-between ">
-                        <Button className="rounded-full">
-                            <ArrowLeft></ArrowLeft>
-                        </Button>
-                        <h1>Name</h1>
-                        <span>Gr</span>
+            <div className="flex h-screen flex-col gap-10 bg-[url(/assets/images/textures/ceramic.jpeg)] p-5">
+                
+                <div id="component1" className="">
+                    <div className="flex flex-row items-center justify-between">
+                        <Link href="/">
+                            <Button className="rounded-full">
+                                <ArrowLeft></ArrowLeft>
+                            </Button>
+                        </Link>
+                        <h1 className="text-2xl font-bold">{pizza.name}</h1>
+                        <span className="w-16 text-right">
+                            {getSizeGrams(pizza.sizes[psize])}
+                        </span>
                     </div>
                     <div className="flex w-[80%] items-center justify-center">
                         <img
-                            src="/assets/images/pizzas/Амадор_885.png"
-                            alt="Амадор"
+                              src={`/assets/images/pizzas/${pizza.id}.jpg`}
+                              alt={pizza.name}
                         />
                     </div>
                 </div>
-                <div className="flex h-12 flex-row items-center justify-evenly rounded-2xl  bg-gray-400">
-                    <span>Крайна цена: 10.00</span> <PlusCircle />{" "}
-                    <span>1</span> <MinusCircle /> <ShoppingBasket />
+                <div id="component2" className="flex h-12 flex-row items-center justify-evenly rounded-2xl bg-white">
+                    <span>
+                        Крайна цена:{" "}
+                        {getPriceInLevas(pizza.prices[psize] * count)}
+                    </span>
+                    <MinusCircle
+                        onClick={() =>
+                            count > 1 ? setCount((a) => a - 1) : null
+                        }
+                    />
+                    <span>{count}</span>{" "}
+                    <PlusCircle onClick={() => setCount((a) => a + 1)} />
+                    <ShoppingBasket />
                 </div>
-                <div className="flex flex-col gap-6">
-                    <div className="relative flex h-28 flex-col items-center justify-center rounded-2xl bg-gray-400">
+                <div  id="component3" className="flex flex-col gap-6">
+                    <div className="relative flex h-40 flex-col items-center justify-center rounded-2xl bg-white">
                         <div className="absolute top-0 flex w-[45%] items-center justify-center rounded-2xl bg-red-500 text-2xl text-white">
                             <span>Описание</span>
                         </div>
-                        <div className="">
-                            <p>dsadnasdnasldnlsakdnalks</p>
+                        <div className="text-center">
+                            <p>{pizza.ingredients.join(", ")} </p>
                         </div>
                     </div>
-                    <div className="bg-white">opisani</div>
-                    <div className="bg-white">opisani</div>
+                </div>
+                <div id="component4" className="flex flex-col gap-6">
+                    <div className="relative flex h-32 flex-col items-center justify-center rounded-2xl bg-white">
+                        <div className="absolute top-0 flex w-[45%] items-center justify-center rounded-2xl bg-red-500 text-2xl text-white">
+                            <span>Грамажи</span>
+                        </div>
+                        <div className="text-center">
+                            <ul className="flex flex-row gap-3">
+                                {pizza.sizes.map((size, index) => (
+                                    <li className="m-2">
+                                        <Button
+                                            onClick={() => setPsize(index)}
+                                            className="border bg-white text-black"
+                                        >
+                                            {getSizeGrams(size)}
+                                        </Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     );
 }
-
-//     <div className="flex h-screen items-center justify-center">
-//     <div className="flex w-[100%] items-center justify-evenly space-x-4">
-//         {/* Left div */}
-//         <div className=" w-[30rem] space-y-10 rounded-lg">
-//             <div className=" flex w-[30%] items-center justify-center space-x-2">
-//                 <Button size="icon" className=" bg-red-500 rounded-full">
-//                     <ArrowLeft />
-//                 </Button>
-//                 <span className="font-bold">Назад</span>
-//             </div>
-//             <div className="bg-gray-200 p-4 shadow-lg ">
-//                 <div className="h-[67px] bg-no-repeat bg-red-500 bg-top  relative -top-[23px] text-center rounded-full w-[50%] ">
-//                 <p className="text-2xl text-white leading-[65px] transform-none static font-normal">Описание </p>
-//                 </div>
-//                 <p>Left Content</p>
-//             </div>
-//         </div>
-
-//         {/* Image div */}
-//         <div className="rounded-lg bg-white p-4 shadow-lg">
-//             <img
-//                 src="/assets/images/pizzas/Амадор_885.png"
-//                 alt="Амадор"
-//                 className="w-[45rem]"
-//             />
-//         </div>
-//     </div>
-// </div>

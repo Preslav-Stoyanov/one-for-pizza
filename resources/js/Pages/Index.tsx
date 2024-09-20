@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { PageProps, Pizza } from "@/types";
 
 import { FoodCard } from "@/components/FoodCard";
@@ -29,7 +29,7 @@ export default function Index({ pizzas }: IndexProps) {
                 <div className="grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                     {pizzas.data.map((pizza) => {
                         return (
-                            <FoodCard key={pizza.id} pizza={pizza}></FoodCard>
+                           <Link href={`/pizzas/${pizza.id}`}> <FoodCard key={pizza.id} pizza={pizza}></FoodCard> </Link>
                         );
                     })}
                 </div>
@@ -65,3 +65,51 @@ export default function Index({ pizzas }: IndexProps) {
         </>
     );
 }
+
+
+
+
+// const pizzas = [
+    //     {
+    //         name: "Прошуто",
+    //         description:
+    //             "Доматен сос, гъби- печурки/манатарки, кашоматен сос, гъби- печурки/манатарки, кашкавал, прошуто крудо, рукола ",
+    //         sizes: [
+    //             { size: 1400, price: 1300 },
+    //             { size: 1400, price: 1300 },
+    //             { size: 1400, price: 1300 },
+    //         ],
+    //     },
+    //     {
+    //         name: "Чироза",
+    //         description: "Индийски сос, чоризо, кашкавал, рукола ",
+    //         sizes: [{ size: 1400, price: 1300 }],
+    //     },
+    //     {
+    //         name: "Амадор",
+    //         description:
+    //             "Пилешко филе, чоризо, гъби, кашкавал, прошуто крудо, рукола. ",
+    //         sizes: [{ size: 1400, price: 1300 }],
+    //     },
+    //     {
+    //         name: "Прошуто",
+    //         description:
+    //             "Доматен сос, гъби- печурки/манатарки, кашоматен сос, гъби- печурки/манатарки, кашкавал, прошуто крудо, рукола ",
+    //         sizes: [
+    //             { size: 1400, price: 1300 },
+    //             { size: 1400, price: 1300 },
+    //             { size: 1400, price: 1300 },
+    //         ],
+    //     },
+    //     {
+    //         name: "Чироза",
+    //         description: "Индийски сос, чоризо, кашкавал, рукола ",
+    //         sizes: [{ size: 1400, price: 1300 }],
+    //     },
+    //     {
+    //         name: "Амадор",
+    //         description:
+    //             "Пилешко филе, чоризо, гъби, кашкавал, прошуто крудо, рукола. ",
+    //         sizes: [{ size: 1400, price: 1300 }],
+    //     },
+    // ];
