@@ -63,7 +63,10 @@ export function EditCartPizza({ pizza, pizzaIndex }: EditCartPizzaProps) {
                 onClick={() => onOpenChange(true)}
             >
                 {pizza.name} ({getSizeGrams(pizza.sizes[pizza.size])})
-                <Pencil className="mb-1 hidden group-hover:inline" size={20} />
+                <Pencil
+                    className="mb-1 opacity-0 group-hover:opacity-100"
+                    size={20}
+                />
             </Button>
             <DialogContent>
                 <DialogHeader>
