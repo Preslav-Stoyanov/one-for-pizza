@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react";
 import { PageProps, Pizza } from "@/types";
 
-import { FoodCard } from "@/components/ui/food-card";
+import { FoodCard } from "@/components/FoodCard";
 import { Navbar } from "@/components/ui/navbar";
 import {
     Pagination,

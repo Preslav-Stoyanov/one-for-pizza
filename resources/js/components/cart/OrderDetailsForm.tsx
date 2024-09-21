@@ -48,7 +48,7 @@ export function OrderDetailsForm({
     }
 
     return (
-        <div className="w-fit">
+        <div className="w-fit max-w-[300px] sm:max-w-full">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}

@@ -18,11 +18,11 @@ export function QuantityInput({
                 onClick={() => {
                     decrease(pizzaIndex);
                 }}
-                className="bg-transparent p-1 text-zinc-800 hover:bg-transparent hover:text-rose-600"
+                className="bg-transparent p-1 text-zinc-800 hover:bg-transparent hover:text-rose-500"
             >
                 <MinusCircle />
             </Button>
-            <h4 className="text-xl">{quantity}</h4>
+            <h4 className="w-6 text-center text-xl">{quantity}</h4>
             <Button
                 onClick={() => {
                     increase(pizzaIndex);

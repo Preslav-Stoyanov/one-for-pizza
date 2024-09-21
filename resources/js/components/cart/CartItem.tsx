@@ -61,12 +61,12 @@ export function CartItem({
                     quantity={pizza.quantity}
                 />
             </TableCell>
-            <TableCell className="text-center">
+            <TableCell className="w-28 text-center">
                 {getPriceInLevas(pizza.prices[pizza.size] * pizza.quantity)}
             </TableCell>
-            <TableCell className="p-0 text-center">
+            <TableCell className="relative">
                 <div
-                    className="group cursor-pointer p-3"
+                    className="group absolute left-1/2 top-1/2 w-min -translate-x-1/2 -translate-y-1/2 cursor-pointer p-2"
                     onClick={() => removePizzaFromCart(pizzaIndex)}
                 >
                     <X className="stroke-[3.5] group-hover:text-rose-500" />
