@@ -7,7 +7,7 @@ export function PhoneButton() {
         const openingHour = 8;
         const closingHour = 23;
 
-        if (currentHours >= openingHour && currentHours <= closingHour)
+        if (currentHours >= openingHour && currentHours < closingHour)
             window.open("tel:0888888888", "_self");
         else toast.error("Работим между 08:00 и 23:00");
     }

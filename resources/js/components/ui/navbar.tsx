@@ -33,7 +33,7 @@ export function Navbar() {
                     <UserButton />
                 </div>
             </nav>
-            <Toaster position="top-center" />
+            <Toaster position="top-center" richColors />
         </>
     );
 }

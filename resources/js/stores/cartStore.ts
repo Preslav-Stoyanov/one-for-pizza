@@ -1,4 +1,6 @@
+import { getSizeGrams } from "@/lib/utils";
 import { CartPizza } from "@/types";
+import { toast } from "sonner";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -80,6 +82,9 @@ export const useCartStore = create<CartState>()(
                         id: pizzas.length,
                         ...pizza,
                     };
+                    toast.success(
+                        `+ ${pizza.quantity} x ${pizza.name} - ${getSizeGrams(pizza.sizes[pizza.size])}`,
+                    );
 
                     pizzas.push(newPizza);
 
@@ -91,7 +96,12 @@ export const useCartStore = create<CartState>()(
             removePizza: (pizzaIndex) =>
                 set((state) => {
                     const pizzas = state.pizzas;
+                    const pizza = pizzas[pizzaIndex];
                     pizzas.splice(pizzaIndex, 1);
+
+                    toast.warning(
+                        `- ${pizza.quantity} x ${pizza.name} - ${getSizeGrams(pizza.sizes[pizza.size])}`,
+                    );
 
                     return {
                         pizzas: [...pizzas],

@@ -1,4 +1,4 @@
-import { getPriceInLevas, getSizeGrams } from "@/lib/utils";
+import { getPriceInLevas } from "@/lib/utils";
 import { CartPizza } from "@/types";
 import { QuantityInput } from "@/components/QuantityInput";
 import { Button } from "@/components/ui/button";
