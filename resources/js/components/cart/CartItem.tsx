@@ -18,6 +18,8 @@ export function CartItem({
         (state) => state.removeWithoutIngredient,
     );
     const removePizzaFromCart = useCartStore((state) => state.removePizza);
+    const increase = useCartStore((state) => state.increaseQuantity);
+    const decrease = useCartStore((state) => state.decreaseQuantity);
 
     return (
         <TableRow className="relative">
@@ -57,8 +59,9 @@ export function CartItem({
             </TableCell>
             <TableCell>
                 <QuantityInput
-                    pizzaIndex={pizzaIndex}
                     quantity={pizza.quantity}
+                    increase={() => increase(pizzaIndex)}
+                    decrease={() => decrease(pizzaIndex)}
                 />
             </TableCell>
             <TableCell className="w-28 text-center">
