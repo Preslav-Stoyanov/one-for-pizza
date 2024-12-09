@@ -1,6 +1,7 @@
 import { getPriceInLevas, getSizeGrams } from "@/lib/utils";
 import { useCartStore } from "@/stores/cartStore";
 import { Pizza } from "@/types";
+import { Link } from "@inertiajs/react";
 
 import { Plus, ShoppingBasket } from "lucide-react";
 
@@ -9,13 +10,20 @@ export function FoodCard({ pizza }: { pizza: Pizza }) {
 
     return (
         <div className="w-full">
-            <div className="relative rounded bg-wood-texture bg-cover shadow-lg shadow-zinc-700/60">
+            <div
+                className="relative rounded bg-cover shadow-lg shadow-zinc-700/60"
+                style={{
+                    backgroundImage: "url(/assets/images/textures/wood.jpg)",
+                }}
+            >
                 <h3 className="ml-4 text-lg font-semibold">{pizza.name}</h3>
-                <img
-                    src={`/assets/images/pizzas/${pizza.id}.jpg`}
-                    alt="Амадор"
-                    className="w-[70%]"
-                />
+                <Link href={`/pizzas/${pizza.id}`}>
+                    <img
+                        src={`/assets/images/pizzas/${pizza.id}.jpg`}
+                        alt={pizza.name}
+                        className="w-[70%]"
+                    />
+                </Link>
                 <div className="absolute bottom-4 right-0 flex h-full flex-col items-end justify-end gap-4">
                     {pizza.sizes.map((size, sizeIndex) => (
                         <div

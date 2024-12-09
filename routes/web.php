@@ -4,6 +4,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Pizza;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
